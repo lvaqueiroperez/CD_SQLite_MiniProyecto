@@ -98,4 +98,25 @@ public class BD {
         }
     }
 
+    /**
+     * Método de conexión a la BD que utilizarán los métodos que accedan o
+     * modifiquen la BD.
+     *
+     * @return Variable conn usada por los métodos que accedan a la BD.
+     */
+    private Connection connect() {
+
+        String url = "jdbc:sqlite:/home/local/DANIELCASTELAO/lvaqueiroperez/CLASE/NetBeansProjects/Boletines_Progra/TRABAJO_ManualSQL/" + baseCon;
+
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
+    
+    
+
 }
