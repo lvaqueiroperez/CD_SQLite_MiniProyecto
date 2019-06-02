@@ -16,9 +16,8 @@ public class BD {
 
         bdName = fileName;
 
-        //ALMACENAMOS EN UNA VARIABLE STRING LA RUTA DONDE SE CREARÁ LA BD
         String url = "jdbc:sqlite:/home/local/DANIELCASTELAO/lvaqueiroperez/CLASE/NetBeansProjects/Boletines_Progra/TRABAJO_ManualSQL/" + bdName;
-        //NOS CONECTAMOS AL DRIVER Y LA CREAMOS
+
         try (Connection conn = DriverManager.getConnection(url)) {
 
             if (conn != null) {
@@ -34,5 +33,40 @@ public class BD {
     }
 
     public static String baseCon;
+
+    /**
+     * Método para conectarse a una BD de SQLite
+     *
+     * @param nombreConn El nombre de la BD a la que nos vamos a conectar.
+     */
+    public static void connect(String nombreBDCon) {
+
+        baseCon = nombreBDCon;
+
+        Connection conn = null;
+
+        try {
+
+            String url = "jdbc:sqlite:/home/local/DANIELCASTELAO/lvaqueiroperez/CLASE/NetBeansProjects/Boletines_Progra/TRABAJO_ManualSQL/" + baseCon;
+
+            conn = DriverManager.getConnection(url);
+
+            JOptionPane.showMessageDialog(null, "Conectado a la BD");
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "Fallo en la conexión, asegúrate de poner bien el nombre de la BD");
+
+        } finally {
+            try {
+                if (conn != null) {
+                    conn.close();
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }
 
 }
