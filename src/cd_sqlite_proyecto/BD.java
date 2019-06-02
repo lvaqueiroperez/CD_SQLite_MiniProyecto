@@ -116,7 +116,34 @@ public class BD {
         }
         return conn;
     }
-    
-    
+
+    /**
+     * Método para insertar datos en una tabla.
+     *
+     * @param dni
+     * @param nombre
+     * @param apellido1
+     * @param nombreT Nombre de la tabla
+     */
+    public void insertFila1(String dni, String nombre, String apellido1, String nombreT) {
+
+        String sql = "INSERT INTO " + nombreT + "1(dni,nombre,apellido1) VALUES(?,?,?)";
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, dni);
+            pstmt.setString(2, nombre);
+            pstmt.setString(3, apellido1);
+
+            pstmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Datos insertados");
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR, asegúrate de que has insertado los datos correctamente");
+        }
+    }
 
 }
