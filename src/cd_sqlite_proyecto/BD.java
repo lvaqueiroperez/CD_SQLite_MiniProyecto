@@ -78,7 +78,7 @@ public class BD {
 
         String url = "jdbc:sqlite:/home/local/DANIELCASTELAO/lvaqueiroperez/CLASE/NetBeansProjects/Boletines_Progra/TRABAJO_ManualSQL/" + baseCon;
 
-        String sql = "CREATE TABLE IF NOT EXISTS " + nombre + "1 (\n"
+        String sql = "CREATE TABLE IF NOT EXISTS " + nombre + " (\n"
                 + "	dni text NOT NULL PRIMARY KEY,\n"
                 + "	nombre text NOT NULL,\n"
                 + "	apellido1 text NOT NULL\n"
@@ -157,7 +157,7 @@ public class BD {
      */
     public void update(String dni, String nombre, String apellido1, String tabla) {
 
-        String sql = "UPDATE " + tabla + "1 SET nombre = ? , "
+        String sql = "UPDATE " + tabla + " SET nombre = ? , "
                 + "apellido1 = ? "
                 + "WHERE dni = ?";
 
@@ -171,6 +171,30 @@ public class BD {
             pstmt.executeUpdate();
 
             JOptionPane.showMessageDialog(null, "Datos modificados");
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR, asegúrate de que has insertado los datos correctamente");
+        }
+    }
+
+    /**
+     * Método para eliminar campos de una tabla según su PRIMARYKEY.
+     *
+     * @param dni
+     * @param tabla Nombre de la tabla
+     */
+    public void delete(String dni, String tabla) {
+
+        String sql = "DELETE FROM " + tabla + " WHERE dni = ?";
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, dni);
+
+            JOptionPane.showMessageDialog(null, "Datos borrados");
 
         } catch (SQLException e) {
 
