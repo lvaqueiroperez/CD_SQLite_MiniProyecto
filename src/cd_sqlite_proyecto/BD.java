@@ -123,11 +123,11 @@ public class BD {
      * @param dni
      * @param nombre
      * @param apellido1
-     * @param nombreT Nombre de la tabla
+     * @param nombreT Nombre de la tabla.
      */
     public void insertFila1(String dni, String nombre, String apellido1, String nombreT) {
 
-        String sql = "INSERT INTO " + nombreT + "1(dni,nombre,apellido1) VALUES(?,?,?)";
+        String sql = "INSERT INTO " + nombreT + "(dni,nombre,apellido1) VALUES(?,?,?)";
 
         try (Connection conn = this.connect();
                 PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -141,6 +141,39 @@ public class BD {
             JOptionPane.showMessageDialog(null, "Datos insertados");
 
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR, asegúrate de que has insertado los datos correctamente");
+        }
+    }
+
+    /**
+     * Método para actualizar los datos de una tabla de la BD
+     *
+     * @param dni
+     * @param nombre
+     * @param apellido1
+     * @param tabla Nombre de la tabla.
+     *
+     */
+    public void update(String dni, String nombre, String apellido1, String tabla) {
+
+        String sql = "UPDATE " + tabla + "1 SET nombre = ? , "
+                + "apellido1 = ? "
+                + "WHERE dni = ?";
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, nombre);
+            pstmt.setString(2, apellido1);
+            pstmt.setString(3, dni);
+
+            pstmt.executeUpdate();
+
+            JOptionPane.showMessageDialog(null, "Datos modificados");
+
+        } catch (SQLException e) {
+
             System.out.println(e.getMessage());
             JOptionPane.showMessageDialog(null, "ERROR, asegúrate de que has insertado los datos correctamente");
         }
