@@ -69,4 +69,33 @@ public class BD {
         }
     }
 
+    /**
+     * Método para crear una tabla.
+     *
+     * @param nombre Nombre de las tabla que se creará.
+     */
+    public static void crearTablaPer1(String nombre) {
+
+        String url = "jdbc:sqlite:/home/local/DANIELCASTELAO/lvaqueiroperez/CLASE/NetBeansProjects/Boletines_Progra/TRABAJO_ManualSQL/" + baseCon;
+
+        String sql = "CREATE TABLE IF NOT EXISTS " + nombre + "1 (\n"
+                + "	dni text NOT NULL PRIMARY KEY,\n"
+                + "	nombre text NOT NULL,\n"
+                + "	apellido1 text NOT NULL\n"
+                + ");";
+
+        try (Connection conn = DriverManager.getConnection(url);
+                Statement stmt = conn.createStatement()) {
+
+            stmt.execute(sql);
+
+            JOptionPane.showMessageDialog(null, "Tabla creada");
+
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+            JOptionPane.showConfirmDialog(null, "ERROR EN TABLA 1, revisa la excepción");
+        }
+    }
+
 }
