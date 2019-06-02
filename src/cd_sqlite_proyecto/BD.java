@@ -203,4 +203,33 @@ public class BD {
         }
     }
 
+    /**
+     * Método para buscar campos en una tabla de la BD.
+     *
+     * @param dni
+     * @param tabla Nombre de la tabla.
+     */
+    public void selectDni(String dni, String tabla) {
+
+        String sql = "SELECT nombre,apellido1 FROM " + tabla + " WHERE dni = ?";
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, dni);
+
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+
+                JOptionPane.showMessageDialog(null, rs.getString("dni") + "\t" + rs.getString("nombre") + "\t"
+                        + rs.getString("apellido1"));
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            JOptionPane.showMessageDialog(null, "ERROR, asegúrate de que has insertado los datos correctamente");
+        }
+    }
+
 }
